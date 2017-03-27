@@ -2,21 +2,30 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <algorithm>
-#include <sstream>
+#include <vector>
 
 using namespace std;
 
-class Contacts
-{
+class person {
 public:
-	void Display();
-	void Add();
-	void Change();
-	void Delete();
-	void Find();
+	string name, number;
+	bool operator <(const person &a) const {
+		return this->name < a.name;
+	}
+};
+
+class Contacts {
+public:
+	Contacts();
+	void scan_();
+	void sort_();
+	int find_by_name_(string target);
+	int find_by_number(string target);
+	void print_();
+	void add_new_();
+	void remove_();
+	void edit_();
 private:
-	vector<string> name;
-	vector<string> number;
+	vector<person> people;
 };

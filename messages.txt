@@ -1,0 +1,5 @@
+01080101050 Received 1703030101 Hello World!11111111111111111111111111111
+01090101010 Sended 1703030102 Hi. Nice to meet you. My name is james Lee.11
+01080101050 Received 1703030103 Text Message Abbreviations. To keep our chat guide user-friendly for all ages, some inappropriate words have been edited to include an alternate meaning.
+01080101050 Sended 1703040104 These words are marked with * around the word which has been switched (e.g. *freak*).
+01701010101 Sended 1703120106 Used to represent the gesture of "smacking your forehead with your palm" to express embarrassment or frustration

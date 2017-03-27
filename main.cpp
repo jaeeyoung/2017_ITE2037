@@ -1,68 +1,9 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
 #include "contacts.h"
+#include "messages.h"
+#include "recents.h"
 
-
-using namespace std;
-
-class callInfo {
-public:
-	string type, when, who;
-};
-
-class Recents {
-public:
-	Recents() { scan(); }
-
-	void scan() {
-		ifstream file;
-
-		file.open("recents.txt");
-
-		while (!file.eof()) {
-			callInfo tmp;
-			file >> tmp.type >> tmp.who >> tmp.when;
-			callList.push_back(tmp);
-		}
-
-		file.close();
-	}
-
-	void printAll() {
-		for (int i = 0; i<callList.size(); ++i) {
-			if (callList[i].type == "Missed") {
-				cout << i + 1 << ". Missed call    From : " << callList[i].who << " When : " << callList[i].when << endl;
-			}
-			else if (callList[i].type == "Cancelled") {
-				cout << i + 1 << ". Cancelled call To   : " << callList[i].who << " When : " << callList[i].when << endl;
-			}
-			else if (callList[i].type == "Incoming") {
-				cout << i + 1 << ". Incoming call  From : " << callList[i].who << " When : " << callList[i].when << endl;
-			}
-			else if (callList[i].type == "Outgoing") {
-				cout << i + 1 << ". Outgoing call  To   : " << callList[i].who << " When : " << callList[i].when << endl;
-			}
-		}
-	}
-
-	void printMissed() {
-		int idx = 1;
-		for (int i = 0; i<callList.size(); ++i) {
-			if (callList[i].type == "Missed") {
-				cout << idx++ << ". Missed    call From : " << callList[i].who << " When : " << callList[i].when << endl;
-			}
-		}
-	}
-
-private:
-	vector<callInfo> callList;
-};
-
-
-int command0() {
-	cout << endl << "-------------------------" << endl;
+string command0() {
+	cout << "-home-------------------------" << endl;
 	cout << "1. Contacts" << endl;
 	cout << "2. Messages" << endl;
 	cout << "3. Recents" << endl;
@@ -70,59 +11,91 @@ int command0() {
 	cout << "-------------------------" << endl;
 	cout << "Input the number (1-4) : ";
 
-	int output;
+	string output;
 	cin >> output;
 	return output;
 }
 
-int command1() {
-	cout << endl << "-------------------------" << endl;
-	cout << "1. Display" << endl;
-	cout << "2. Add" << endl;
-	cout << "3. Change" << endl;
-	cout << "4. Delecte" << endl;
-	cout << "5. Find" << endl;
-	cout << "-------------------------" << endl;
-	cout << "Input the number (1-5) : ";
+string command1() {
+	cout << "-home/contacts----------------" << endl;
+	cout << "1. Add " << endl;
+	cout << "2. Edit" << endl;
+	cout << "3. Remove" << endl;
+	cout << "4. Show" << endl;
+	cout << "5. Back" << endl;
+	cout << "------------------------" << endl;
 
-	int output;
-	cin >> output;
-	return output;
+	string result;
+	cout << "Input the number(1-5) : ";
+	cin >> result;
+	return result;
 }
 
-int command3() {
-	cout << "-------------------------" << endl;
+string command2() {
+	cout << "-home/recents-----------------" << endl;
+	cout << "1. New message" << endl;
+	cout << "2. All messages" << endl;
+	cout << "3. Sended messages" << endl;
+	cout << "4. Received messages" << endl;
+	cout << "5. Back" << endl;
+	cout << "------------------------" << endl;
+
+	string result;
+	cout << "Input the number(1-5) : ";
+	cin >> result;
+	return result;
+}
+
+string command3() {
+	cout << "-home/recents-----------------" << endl;
 	cout << "1. All" << endl;
 	cout << "2. Missed" << endl;
+	cout << "3. Back" << endl;
 	cout << "-------------------------" << endl;
 	cout << "Input the number (1-2) : ";
 
-	int output;
+	string output;
 	cin >> output;
 	return output;
 }
+
+void print_err() {
+	cout << "Don't understand" << endl;
+}
+
 int main() {
-	Recents exam;
 	Contacts contacts;
+	Messages messages;
+	Recents recents;
 
 	while (true) {
-		int cmd1 = command0();
-
-		if (cmd1 == 1) {
-			int cmd2 = command1();
-			if (cmd2 == 1) 		contacts.Display();
-			else if (cmd2 == 2) 	contacts.Add();
-			else if (cmd2 == 3) 	contacts.Change();
-			else if (cmd2 == 4) 	contacts.Delete();
-			else if (cmd2 == 5) 	contacts.Find();
+		string cmd1 = command0();
+		if (cmd1 == "1") {
+			string cmd2 = command1();
+			if (cmd2 == "1") 			contacts.add_new_();
+			else if (cmd2 == "2") 		contacts.edit_();
+			else if (cmd2 == "3") 		contacts.remove_();
+			else if (cmd2 == "4") 		contacts.print_();
+			else if (cmd2 == "5");
+			else print_err();
 		}
-
-		if (cmd1 == 3) {
-			int cmd2 = command3();
-			if (cmd2 == 1) 		exam.printAll();
-			else if (cmd2 == 2) 	exam.printMissed();
+		else if (cmd1 == "2") {
+			string cmd2 = command2();
+			if (cmd2 == "1");
+			else if (cmd2 == "2")		messages.print_();
+			else if (cmd2 == "3")		messages.print_out_();
+			else if (cmd2 == "4")		messages.print_in_();
+			else print_err();
 		}
-		else if (cmd1 == 4) return 0;
+		else if (cmd1 == "3") {
+			string cmd2 = command3();
+			if (cmd2 == "1") 			recents.printAll();
+			else if (cmd2 == "2") 		recents.printMissed();
+			else if (cmd2 == "3");
+			else print_err();
+		}
+		else if (cmd1 == "4") return 0;
+		else print_err();
 	}
 
 	return 0;
